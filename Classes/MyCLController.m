@@ -3,6 +3,7 @@
 @implementation MyCLController
 
 @synthesize locationManager;
+@synthesize delegate;
 
 - (id) init {
 	self = [super init];
@@ -17,14 +18,14 @@
 	didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation
 {
-	NSLog(@"Location: %@", [newLocation description]);
+	[self.delegate locationUpdate:newLocation];
 }
 
 
 - (void)locationManager:(CLLocationManager *)manager
 	   didFailWithError:(NSError *)error
 {
-	NSLog(@"Error: %@", [error description]);
+	[self.delegate locationError:error];
 }
 
 - (void)dealloc {
